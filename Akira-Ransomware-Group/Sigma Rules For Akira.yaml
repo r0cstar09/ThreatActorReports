@@ -1,0 +1,20 @@
+title: Suspicious Rclone Cloud Exfiltration
+id: efa3d5e0-akira-rclone-exfil
+status: stable
+description: Detects use of Rclone tool possibly for data exfiltration by Akira
+author: CTI Team
+logsource:
+  category: Process Creation
+detection:
+  selection:
+    Image|endswith: '\rclone.exe'
+    CommandLine|contains|all:
+      - 'copy'
+      - '--config'
+  condition: selection
+fields:
+  - Image
+  - CommandLine
+falsepositives:
+  - Legitimate use of Rclone for cloud backup (should be known and approved)
+level: high

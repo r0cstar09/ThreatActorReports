@@ -1,0 +1,9 @@
+alert tcp $EXTERNAL_NET any -> $HOME_NET 443 (
+    msg:"Akira Cisco ASA CVE-2023-20269 exploit attempt";
+    flow:established,to_server;
+    content:"/+CSCOT+/translationtable?type=mst&textdomain="; http_uri;
+    content:"&default-language="; http_uri;
+    reference:cve,2023-20269;
+    classtype:attempted-admin;
+    sid:9000001; rev:1;
+)
