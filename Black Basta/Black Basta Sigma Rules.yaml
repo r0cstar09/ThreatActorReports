@@ -1,0 +1,19 @@
+title: Detect Volume Shadow Copy Deletion (Possible Ransomware)
+id: bbasta-delete-shadows
+status: stable
+description: Detects use of vssadmin to delete volume shadows (Black Basta and others)
+author: SOCTeam
+logsource:
+  category: Process Creation
+  product: Windows
+detection:
+  selection:
+    Image|endswith: '\vssadmin.exe'
+    CommandLine|contains: 'delete shadows'
+  condition: selection
+fields:
+  - CommandLine
+  - ParentImage
+falsepositives:
+  - Rarely, legitimate system admin actions (should be limited to backup maintenance windows)
+level: high

@@ -1,0 +1,1 @@
+alert tcp any any -> any any (msg:"BLACK BASTA ransom note exfiltration"; content:"Your network is encrypted by the Black Basta group"; nocase; flow:to_server,established; classtype:sensitive-data; sid:9000001; rev:1;)

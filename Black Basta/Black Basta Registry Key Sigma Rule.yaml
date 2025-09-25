@@ -1,0 +1,18 @@
+title: Black Basta Registry Run Key Persistence
+id: bbasta-runkey
+status: experimental
+description: Detects creation of suspicious Run key often used by Black Basta for persistence
+author: SOCPrime (adapted)
+logsource:
+  category: Registry
+  product: Windows
+detection:
+  runKey:
+    EventID: 13
+    TargetObject|contains: '\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\'
+    Details|contains: '.exe'
+  condition: runKey
+fields:
+  - TargetObject
+  - Details
+level: medium
